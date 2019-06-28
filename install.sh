@@ -16,7 +16,13 @@ PATH=$PATH:$PWD
 distro=`getdistro.sh`
 case "$(getdistro.sh)" in
 "Ubuntu"*)
-    sudo apt-get install git zsh vim tmux gdb fd-find
+    sudo apt-get install git zsh vim tmux gdb 
+    if ! type -p fd>/dev/null; then
+        ZIPFILE="fd.deb"
+        VERSION=`curl -s https://github.com/sharkdp/fd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
+        wget -O $ZIPFILE -q https://github.com/sharkdp/fd/releases/download/$VERSION/fd_${VERSION:1}_amd64.deb
+        sudo dpkg -i $ZIPFILE
+    fi
     if ! type -p bat>/dev/null; then
         ZIPFILE="bat.deb"
         VERSION=`curl -s https://github.com/sharkdp/bat/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
