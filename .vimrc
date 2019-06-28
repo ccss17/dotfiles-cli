@@ -59,21 +59,19 @@ let NERDTreeShowHidden=1
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'yggdroot/indentline'
-Plugin 'dart-lang/dart-vim-plugin'
-Plugin 'fidian/hexmode'
-Plugin 'phanviet/vim-monokai-pro'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'tpope/vim-eunuch'
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-easy-align'
+Plug 'VundleVim/Vundle.vim'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdcommenter'
+Plug 'Valloric/YouCompleteMe'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'yggdroot/indentline'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'fidian/hexmode'
+Plug 'phanviet/vim-monokai-pro'
+Plug 'leafgarland/typescript-vim'
+Plug 'tpope/vim-eunuch'
+call plug#end()

@@ -2,26 +2,27 @@
 # update package
 
 # install git
+# install zsh
+# install vim
+# install tmux
+# install gdb
+
 # copy .gitconfig to ~
 # copy .gitignore to ~
 
-# install zsh
 # install oh-my-zsh
 # install lambda-zsh-theme
 # install zsh-autosuggestion
-# install zsh-z
+# (DON'T NEED TO INSTALL bulit-in) install zsh-z
 # copy .zsh_aliases to ~
 # chsh to zsh
 
-# install vim
 # install vim-Vundle
 # copy .vimrc to ~
 # install vim-plugin
 
-# install tmux
 # copy .tmux.conf to ~
 
-# install gdb
 # install gdb-gef
 # copy .gdbinit to ~
 
