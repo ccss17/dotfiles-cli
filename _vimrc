@@ -1,5 +1,5 @@
 syntax enable
-set termguicolors
+"set termguicolors
 colors monokai_pro
 
 set switchbuf=usetab
