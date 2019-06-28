@@ -45,8 +45,8 @@ set t_Co=256
 set cursorline
 hi cursorline term=none cterm=none guibg=#303000 ctermbg=234
 
-"let g:airline_theme='cool'
-let g:airline_theme='cobalt2'
+let g:airline_theme='cool'
+"let g:airline_theme='cobalt2'
 
 " indent line settings
 let g:indentLine_color_term = 20
