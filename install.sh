@@ -3,11 +3,11 @@
 #
 # install rc files
 #
-cp _gitconfig ~
-cp _gitignore ~
-cp _zsh_aliases ~
-cp _vimrc ~
-cp _tmux.conf ~
+cp _gitconfig ~/.gitconfig
+cp _gitignore ~/.gitignore
+cp _zsh_aliases ~/.zsh_aliases
+cp _vimrc ~/.vimrc
+cp _tmux.conf ~/.tmux.conf
 
 #
 # install package
@@ -35,7 +35,7 @@ esac
 if [ ! -d ~/.oh-my-zsh ]; then
     sh -c "$(wget -O- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
-cp _zshrc ~
+cp _zshrc ~/.zshrc
 if [ ! -f ~/.oh-my-zsh/themes/cdimascio-lambda.zsh-theme ]; then
     git clone https://github.com/cdimascio/lambda-zsh-theme
     cp lambda-zsh-theme/cdimascio-lambda.zsh-theme ~/.oh-my-zsh/themes
