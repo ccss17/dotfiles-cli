@@ -47,7 +47,7 @@ if [ ! -f ~/.oh-my-zsh/themes/cdimascio-lambda.zsh-theme ]; then
     cp lambda-zsh-theme/cdimascio-lambda.zsh-theme ~/.oh-my-zsh/themes
 fi
 if [ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions \ 
+    git clone https://github.com/zsh-users/zsh-autosuggestions \
         ~/.oh-my-zsh/plugins/zsh-autosuggestions
 fi
 
