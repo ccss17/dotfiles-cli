@@ -13,9 +13,9 @@ cp _tmux.conf ~/.tmux.conf
 # install package
 #
 PATH=$PATH:$PWD
-distro=`getdistro.sh`
-case "$(getdistro.sh)" in
-"Ubuntu"*)
+distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
+case "$distro" in
+"ubuntu")
     sudo apt-get install git zsh vim tmux gdb 
     if ! type -p fd>/dev/null; then
         ZIPFILE="fd.deb"
@@ -30,7 +30,7 @@ case "$(getdistro.sh)" in
         sudo dpkg -i $ZIPFILE
     fi
     ;;
-"Arch"*)
+"arch")
     sudo pacman -S git zsh vim tmux gdb bat fd
     ;;
 esac

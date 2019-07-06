@@ -1,11 +1,11 @@
 #!/bin/sh
 PATH=$PATH:$PWD
-distro=`getdistro.sh`
-case "$(getdistro.sh)" in
-    "Ubuntu"*)
+distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
+case "$distro" in
+    "ubuntu")
         sudo apt-get update && sudo apt-get upgrade -y
         ;;
-    "Arch"*)
+    "arch")
         sudo pacman -Syu
         ;;
 esac
