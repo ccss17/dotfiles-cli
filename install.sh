@@ -35,6 +35,7 @@ case "$distro" in
     git clone https://github.com/pwndbg/pwndbg
     cd pwndbg
     ./setup.sh
+    cd ..
     ;;
 "arch")
     # install git, zsh, vim, tmux, gdb, bat, fd, pwndbg
