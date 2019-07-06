@@ -15,22 +15,30 @@ cp _tmux.conf ~/.tmux.conf
 distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
 case "$distro" in
 "ubuntu")
+    # install git, zsh, vim, tmux, gdb
     sudo apt-get install git zsh vim tmux gdb 
+    # install fd
     if ! type -p fd>/dev/null; then
         ZIPFILE="fd.deb"
         VERSION=`curl -s https://github.com/sharkdp/fd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
         wget -O $ZIPFILE -q https://github.com/sharkdp/fd/releases/download/$VERSION/fd_${VERSION:1}_amd64.deb
         sudo dpkg -i $ZIPFILE
     fi
+    # install bat
     if ! type -p bat>/dev/null; then
         ZIPFILE="bat.deb"
         VERSION=`curl -s https://github.com/sharkdp/bat/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
         wget -O $ZIPFILE -q https://github.com/sharkdp/bat/releases/download/$VERSION/bat_${VERSION:1}_amd64.deb
         sudo dpkg -i $ZIPFILE
     fi
+    # install pwndbg
+    git clone https://github.com/pwndbg/pwndbg
+    cd pwndbg
+    ./setup.sh
     ;;
 "arch")
-    sudo pacman -S git zsh vim tmux gdb bat fd
+    # install git, zsh, vim, tmux, gdb, bat, fd, pwndbg
+    sudo pacman -S git zsh vim tmux gdb bat fd pwndbg
     ;;
 esac
 
@@ -42,8 +50,8 @@ if [ ! -d ~/.oh-my-zsh ]; then
 fi
 cp _zshrc ~/.zshrc
 if [ ! -f ~/.oh-my-zsh/themes/cdimascio-lambda.zsh-theme ]; then
-    git clone https://github.com/cdimascio/lambda-zsh-theme
-    cp lambda-zsh-theme/cdimascio-lambda.zsh-theme ~/.oh-my-zsh/themes
+    curl -fLo ~/.oh-my-zsh/themes/cdimascio-lambda.zsh-theme \
+        https://raw.githubusercontent.com/cdimascio/lambda-zsh-theme/master/cdimascio-lambda.zsh-theme
 fi
 if [ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions \
@@ -62,11 +70,6 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     vim -c PlugInstall
 fi
-
-#
-# install gdb-dashboard
-#
-wget -P ~ git.io/.gdbinit
 
 #
 # install exa
