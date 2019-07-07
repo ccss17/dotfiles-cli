@@ -1,5 +1,7 @@
 #!/bin/bash
 
+WORKING_DIR=$PWD
+
 #
 # install rc files
 #
@@ -32,10 +34,14 @@ case "$distro" in
         sudo dpkg -i $ZIPFILE
     fi
     # install pwndbg
-    git clone https://github.com/pwndbg/pwndbg
-    cd pwndbg
+    if [ -f ~/.gdbinit ]; then
+        mv ~/.gdbinit ~/.gdbinit.bak
+    fi
+    git clone https://github.com/pwndbg/pwndbg ~/pwndbg
+    cd ~/pwndbg
     ./setup.sh
-    cd ..
+    cd $WORKING_DIR
+    cp _gdbinit ~/.gdbinit
     ;;
 "arch")
     # install git, zsh, vim, tmux, gdb, bat, fd, pwndbg

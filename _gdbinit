@@ -1,0 +1,7 @@
+source /home/ubuntu/pwndbg/gdbinit.py
+set context-clear-screen on
+set context-code-lines 8
+set context-sections regs disasm code stack
+set context-source-code-lines 7
+set show-flags on
+set show-retaddr-reg on
