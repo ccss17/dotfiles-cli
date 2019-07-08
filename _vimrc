@@ -24,18 +24,19 @@ map <silent> <C-o> :vsp ~/.vimrc<CR>
 nmap <silent> <F10> :tabn<CR>
 nmap <silent> <F9> :tabp<CR>
 nmap <silent> <C-p> :NERDTreeToggle<CR>
-nmap <silent> <C-Up> :resize -5<CR>
-nmap <silent> <C-Down> :resize +5<CR>
-nmap <silent> <C-Left> :vertical resize -5<CR>
+nmap <silent> <Up> :resize -5<CR>
+nmap <silent> <Down> :resize +5<CR>
+nmap <silent> <Left> :vertical resize -5<CR>
+nmap <silent> <Right> :vertical resize +5<CR>
 nmap <silent> <Space> :nohlsearch<Bar>:echo<CR>
-nmap <silent> <C-Right> :vertical resize +5<CR>
 nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
-cnoreabbrev install PluginInstall
-cnoreabbrev list PluginList
+cnoreabbrev install PlugInstall
+cnoreabbrev status PlugStatus
+cnoreabbrev update PlugUpdate
 cnoreabbrev euckr :e ++enc=euc-kr
 
 hi Normal guibg=NONE ctermbg=NONE
