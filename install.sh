@@ -2,6 +2,7 @@
 
 WORKING_DIR=$PWD
 ORIGIN=`git remote get-url origin | cut -d'/' -f4`
+echo $ORIGIN
 
 #
 # install rc files
@@ -44,7 +45,7 @@ esac
 # install pwndbg
 #
 install_mypwndbg() {
-    git clone https://github.com/nffive/pwndbg ~/pwndbg
+    git clone https://github.com/$ORIGIN/pwndbg ~/pwndbg
     cd ~/pwndbg
     ./setup.sh
     cd $WORKING_DIR
