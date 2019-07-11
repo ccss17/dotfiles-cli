@@ -37,7 +37,7 @@ case "$distro" in
     if [ -f ~/.gdbinit ]; then
         mv ~/.gdbinit ~/.gdbinit.bak
     fi
-    git clone https://github.com/pwndbg/pwndbg ~/pwndbg
+    git clone https://github.com/nffive/pwndbg ~/pwndbg
     cd ~/pwndbg
     ./setup.sh
     cd $WORKING_DIR
