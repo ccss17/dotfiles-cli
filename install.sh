@@ -1,6 +1,7 @@
 #!/bin/bash
 
 WORKING_DIR=$PWD
+ORIGIN=`git remote get-url origin | cut -d'/' -f4`
 
 #
 # install rc files
@@ -33,45 +34,56 @@ case "$distro" in
         wget -O $ZIPFILE -q https://github.com/sharkdp/bat/releases/download/$VERSION/bat_${VERSION:1}_amd64.deb
         sudo dpkg -i $ZIPFILE
     fi
-    # install pwndbg
-    if [ -f ~/.gdbinit ]; then
-        mv ~/.gdbinit ~/.gdbinit.bak
-    fi
-    git clone https://github.com/nffive/pwndbg ~/pwndbg
-    cd ~/pwndbg
-    ./setup.sh
-    cd $WORKING_DIR
-    cp _gdbinit ~/.gdbinit
     ;;
 "arch")
-    # install git, zsh, vim, tmux, gdb, bat, fd, pwndbg
-    sudo pacman -S git zsh vim tmux gdb bat fd pwndbg
+    sudo pacman -S git zsh vim tmux gdb bat fd 
     ;;
 esac
 
 #
+# install pwndbg
+#
+install_mypwndbg() {
+    git clone https://github.com/nffive/pwndbg ~/pwndbg
+    cd ~/pwndbg
+    ./setup.sh
+    cd $WORKING_DIR
+}
+[[ -f ~/.gdbinit ]] && mv ~/.gdbinit ~/.gdbinit.bak
+if [ -d ~/pwndbg ]; then
+    cd ~/pwndbg
+    AUTHOR=`git remote get-url origin | cut -d'/' -f4`
+    if [ $AUTHOR == $ORIGIN ]; then
+        git pull origin
+    else
+        cd
+        mv ~/pwndbg ~/pwndbg.bak
+        install_mypwndbg
+    fi
+else
+    install_mypwndbg
+fi
+cp _gdbinit ~/.gdbinit
+
+#
 # install oh-my-zsh
 #
-if [ ! -d ~/.oh-my-zsh ]; then
-    sh -c "$(wget -O- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-fi
+[[ ! -d ~/.oh-my-zsh ]] && sh -c "$(wget -O- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+[[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak
 cp _zshrc ~/.zshrc
-if [ ! -f ~/.oh-my-zsh/themes/cdimascio-lambda.zsh-theme ]; then
+[[ ! -f ~/.oh-my-zsh/themes/cdimascio-lambda.zsh-theme ]] && \
     curl -fLo ~/.oh-my-zsh/themes/cdimascio-lambda.zsh-theme \
         https://raw.githubusercontent.com/cdimascio/lambda-zsh-theme/master/cdimascio-lambda.zsh-theme
-fi
-if [ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]; then
+[[ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]] && \
     git clone https://github.com/zsh-users/zsh-autosuggestions \
         ~/.oh-my-zsh/plugins/zsh-autosuggestions
-fi
 
 #
 # install vim-plug
 #
-if [ ! -f ~/.vim/colors/monokai_pro.vim ]; then
+[[ ! -f ~/.vim/colors/monokai_pro.vim ]] && \
     curl -fLo ~/.vim/colors/monokai_pro.vim --create-dirs \
         https://raw.githubusercontent.com/phanviet/vim-monokai-pro/master/colors/monokai_pro.vim
-fi
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

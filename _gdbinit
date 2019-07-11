@@ -1,4 +1,4 @@
-source /home/ubuntu/my-pwndbg/gdbinit.py
+source ~/pwndbg/gdbinit.py
 set context-clear-screen on
 set context-code-lines 8
 #set context-sections regs disasm code stack
