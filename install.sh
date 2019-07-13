@@ -33,21 +33,24 @@ case "$distro" in
         wget -O $ZIPFILE -q https://github.com/sharkdp/bat/releases/download/$VERSION/bat_${VERSION:1}_amd64.deb
         sudo dpkg -i $ZIPFILE
     fi
-    # install pwndbg
-    if [ -f ~/.gdbinit ]; then
-        mv ~/.gdbinit ~/.gdbinit.bak
-    fi
-    git clone https://github.com/pwndbg/pwndbg ~/pwndbg
-    cd ~/pwndbg
-    ./setup.sh
-    cd $WORKING_DIR
-    cp _gdbinit ~/.gdbinit
     ;;
 "arch")
     # install git, zsh, vim, tmux, gdb, bat, fd, pwndbg
-    sudo pacman -S git zsh vim tmux gdb bat fd pwndbg
+    sudo pacman -S git zsh vim tmux gdb bat fd 
     ;;
 esac
+
+#
+# install pwndbg
+#
+if [ -f ~/.gdbinit ]; then
+    mv ~/.gdbinit ~/.gdbinit.bak
+fi
+git clone https://github.com/pwndbg/pwndbg ~/pwndbg
+cd ~/pwndbg
+./setup.sh
+cd $WORKING_DIR
+cp _gdbinit ~/.gdbinit
 
 #
 # install oh-my-zsh
