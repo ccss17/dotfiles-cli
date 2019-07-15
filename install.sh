@@ -20,7 +20,7 @@ distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
 case "$distro" in
 "ubuntu")
     # install git, zsh, vim, tmux, gdb
-    sudo apt-get install git zsh vim tmux gdb 
+    sudo apt-get install git zsh vim tmux gdb unzip
     # install fd
     if ! type -p fd>/dev/null; then
         ZIPFILE="fd.deb"
@@ -37,7 +37,7 @@ case "$distro" in
     fi
     ;;
 "arch")
-    sudo pacman -S git zsh vim tmux gdb bat fd 
+    sudo pacman -S git zsh vim tmux gdb bat fd unzip
     ;;
 esac
 
