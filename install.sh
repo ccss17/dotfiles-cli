@@ -7,6 +7,11 @@ echo $ORIGIN
 #
 # install rc files
 #
+[[ -f ~/.gitconfig ]] && mv ~/.gitconfig ~/.gitconfig.bak
+[[ -f ~/.gitignore ]] && mv ~/.gitignore ~/.gitignore.bak
+[[ -f ~/.zsh_aliases ]] && mv ~/.zsh_aliases ~/.zsh_aliases.bak
+[[ -f ~/.vimrc ]] && mv ~/.vimrc ~/.vimrc.bak
+[[ -f ~/.tmux.conf ]] && mv ~/.tmux.conf ~/.tmux.conf.bak
 cp _gitconfig ~/.gitconfig
 cp _gitignore ~/.gitignore
 cp _zsh_aliases ~/.zsh_aliases
@@ -64,6 +69,7 @@ if [ -d ~/pwndbg ]; then
 else
     install_mypwndbg
 fi
+[[ -f ~/.gdbinit ]] && mv ~/.gdbinit ~/.gdbinit.bak
 cp _gdbinit ~/.gdbinit
 
 #
