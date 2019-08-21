@@ -24,7 +24,7 @@ distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
 case "$distro" in
 "ubuntu")
     # install git, zsh, vim, tmux, gdb
-    sudo apt-get install git zsh vim tmux gdb unzip
+    sudo apt-get install git zsh vim tmux gdb unzip -y
     # install fd
     if ! type -p fd>/dev/null; then
         ZIPFILE="fd.deb"
