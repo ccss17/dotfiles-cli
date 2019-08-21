@@ -2,7 +2,6 @@
 
 WORKING_DIR=$PWD
 ORIGIN=`git remote get-url origin | cut -d'/' -f4`
-echo $ORIGIN
 
 #
 # install rc files
