@@ -23,8 +23,8 @@ cp _tmux.conf ~/.tmux.conf
 distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
 case "$distro" in
 "ubuntu")
-    # install git, zsh, vim, tmux, gdb
-    sudo apt-get install git zsh vim tmux gdb unzip -y
+    # install git, zsh, vim, tmux
+    sudo apt-get install git zsh vim tmux unzip -y
     # install fd
     if ! type -p fd>/dev/null; then
         ZIPFILE="fd.deb"
@@ -41,35 +41,9 @@ case "$distro" in
     fi
     ;;
 "arch")
-    sudo pacman -S git zsh vim tmux gdb bat fd unzip
+    sudo pacman -S git zsh vim tmux bat fd unzip
     ;;
 esac
-
-#
-# install pwndbg
-#
-install_mypwndbg() {
-    git clone https://github.com/$ORIGIN/pwndbg ~/pwndbg
-    cd ~/pwndbg
-    ./setup.sh
-    cd $WORKING_DIR
-}
-[[ -f ~/.gdbinit ]] && mv ~/.gdbinit ~/.gdbinit.bak
-if [ -d ~/pwndbg ]; then
-    cd ~/pwndbg
-    AUTHOR=`git remote get-url origin | cut -d'/' -f4`
-    if [ $AUTHOR == $ORIGIN ]; then
-        git pull origin
-    else
-        cd
-        mv ~/pwndbg ~/pwndbg.bak
-        install_mypwndbg
-    fi
-else
-    install_mypwndbg
-fi
-[[ -f ~/.gdbinit ]] && mv ~/.gdbinit ~/.gdbinit.bak
-cp _gdbinit ~/.gdbinit
 
 #
 # install oh-my-zsh
