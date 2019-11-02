@@ -8,12 +8,12 @@ ORIGIN=`git remote get-url origin | cut -d'/' -f4`
 #
 [[ -f ~/.gitconfig ]] && mv ~/.gitconfig ~/.gitconfig.bak
 [[ -f ~/.gitignore ]] && mv ~/.gitignore ~/.gitignore.bak
-[[ -f ~/.zsh_aliases ]] && mv ~/.zsh_aliases ~/.zsh_aliases.bak
+[[ -f ~/.aliases ]] && mv ~/.aliases ~/.aliases.bak
 [[ -f ~/.vimrc ]] && mv ~/.vimrc ~/.vimrc.bak
 [[ -f ~/.tmux.conf ]] && mv ~/.tmux.conf ~/.tmux.conf.bak
 cp _gitconfig ~/.gitconfig
 cp _gitignore ~/.gitignore
-cp _zsh_aliases ~/.zsh_aliases
+cp _aliases ~/.aliases
 cp _vimrc ~/.vimrc
 cp _tmux.conf ~/.tmux.conf
 

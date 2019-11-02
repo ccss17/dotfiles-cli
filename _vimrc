@@ -1,6 +1,7 @@
 syntax enable
 "set termguicolors
-colors monokai_pro
+colors onedark
+"colors monokai_pro
 
 set switchbuf=usetab
 set encoding=utf-8
@@ -41,7 +42,7 @@ cnoreabbrev euckr :e ++enc=euc-kr
 
 hi Normal guibg=NONE ctermbg=NONE
 hi LineNr guibg=NONE ctermbg=NONE
-hi Comment guifg=#afb0ff ctermfg=LightCyan
+"hi Comment guifg=#afb0ff ctermfg=LightCyan
 set t_Co=256
 set cursorline
 hi cursorline term=none cterm=none guibg=#303000 ctermbg=234
@@ -53,6 +54,7 @@ let g:airline_theme='cool'
 let g:indentLine_color_term = 20
 let g:indentLine_color_gui = '#A4E57E'
 let g:indentLine_color_tty_light = 7 " (default: 4)
+let g:indentLine_setConceal = 0
 
 " NERDTree settings
 let NERDTreeShowHidden=1
@@ -62,10 +64,12 @@ filetype off                  " required
 
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-easy-align'
+Plug 'sheerun/vim-polyglot'
+Plug 'phanviet/vim-monokai-pro'
 Plug 'VundleVim/Vundle.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
-"Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
