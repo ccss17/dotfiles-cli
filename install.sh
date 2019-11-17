@@ -22,7 +22,7 @@ cp _tmux.conf ~/.tmux.conf
 #
 distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
 case "$distro" in
-"ubuntu")
+"ubuntu" | "kali")
     # install git, zsh, vim, tmux
     sudo apt-get install git zsh vim tmux unzip -y
     # install fd
@@ -62,12 +62,14 @@ cp _zshrc ~/.zshrc
 # install vim-plug
 #
 [[ ! -f ~/.vim/colors/monokai_pro.vim ]] && \
-    curl -fLo ~/.vim/colors/monokai_pro.vim --create-dirs \
-        https://raw.githubusercontent.com/phanviet/vim-monokai-pro/master/colors/monokai_pro.vim
+    curl -fLo ~/.vim/autoload/onedark.vim --create-dirs \
+        https://raw.githubusercontent.com/joshdick/onedark.vim/master/autoload/onedark.vim
+    curl -fLo ~/.vim/colors/onedark.vim --create-dirs \
+        https://raw.githubusercontent.com/joshdick/onedark.vim/master/colors/onedark.vim
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    vim -c PlugInstall
+    vim +PlugInstall +qall
 fi
 
 #
