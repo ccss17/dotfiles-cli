@@ -1,6 +1,7 @@
 alias src="source ~/.zshrc"
 alias t=tmux
 alias v=vim
+alias rm=rm -i
 alias c=clear
 alias cs='cd ..'
 alias cl='clear;exa -Fghu'
