@@ -1,8 +1,21 @@
 # dotfiles only related to cli
 
-## CLI LIST
+## usage
 
-### install & configuration
+```shell
+./install.sh
+./install_gdb.sh # if you need gdb
+```
+
+- supportted os
+
+  - Arch Linux
+
+  - Ubuntu Linux
+
+  - Kali Linux
+
+## CLI list
 
 - **git**
 
@@ -12,19 +25,19 @@
 
 - **zsh**
 
-  - **oh-my-zsh** 설치 
+  - **oh-my-zsh**
 
-  - **lambda** 프롬프트 설치 
+  - **alien-minimal** 
 
-  - **zsh-autosuggestions** 플러그인 설치 
+  - **zsh-autosuggestions**
 
   - `~/.zsh_aliases`
 
 - **vim**
 
-  - **monokai-pro** 컬러 테마 설치 
+  - **onedark** 
 
-  - **junegunn-vimplug** 설치 
+  - **junegunn-vimplug**
 
   - `~/.vimrc`
 
@@ -34,11 +47,9 @@
 
 - **gdb**
 
-  - **pwndbg** 커스터마이징된 설치 
+  - **pwndbg** 
 
   - `~/.gdbinit`
-
-### only install
 
 - **unzip**
 
@@ -48,20 +59,7 @@
 
 - **exa**
 
-## usage
-
-```shell
-./install.sh
-```
-
-- supportted os
-
-  - Arch Linux
-
-  - Ubuntu Linux
-
 ## License
-
 
 Copyright (C) 2018-2019 HAN CHAN SOL
 

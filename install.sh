@@ -1,19 +1,16 @@
 #!/bin/bash
 
-WORKING_DIR=$PWD
-ORIGIN=`git remote get-url origin | cut -d'/' -f4`
-
 #
 # install rc files
 #
 [[ -f ~/.gitconfig ]] && mv ~/.gitconfig ~/.gitconfig.bak
 [[ -f ~/.gitignore ]] && mv ~/.gitignore ~/.gitignore.bak
-[[ -f ~/.aliases ]] && mv ~/.aliases ~/.aliases.bak
+[[ -f ~/.zsh_aliases ]] && mv ~/.zsh_aliases ~/.zsh_aliases.bak
 [[ -f ~/.vimrc ]] && mv ~/.vimrc ~/.vimrc.bak
 [[ -f ~/.tmux.conf ]] && mv ~/.tmux.conf ~/.tmux.conf.bak
 cp _gitconfig ~/.gitconfig
 cp _gitignore ~/.gitignore
-cp _aliases ~/.aliases
+cp _zsh_aliases ~/.zsh_aliases
 cp _vimrc ~/.vimrc
 cp _tmux.conf ~/.tmux.conf
 
@@ -46,19 +43,6 @@ case "$distro" in
 esac
 
 #
-# install oh-my-zsh
-#
-[[ ! -d ~/.oh-my-zsh ]] && sh -c "$(wget -O- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-[[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak
-cp _zshrc ~/.zshrc
-[[ ! -f ~/.oh-my-zsh/themes/cdimascio-lambda.zsh-theme ]] && \
-    curl -fLo ~/.oh-my-zsh/themes/cdimascio-lambda.zsh-theme \
-        https://raw.githubusercontent.com/cdimascio/lambda-zsh-theme/master/cdimascio-lambda.zsh-theme
-[[ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]] && \
-    git clone https://github.com/zsh-users/zsh-autosuggestions \
-        ~/.oh-my-zsh/plugins/zsh-autosuggestions
-
-#
 # install vim-plug
 #
 [[ ! -f ~/.vim/colors/monokai_pro.vim ]] && \
@@ -82,3 +66,18 @@ if ! type -p exa>/dev/null; then
     unzip $ZIPFILE
     sudo mv exa-linux-x86_64 /usr/bin/exa
 fi
+
+#
+# install oh-my-zsh
+#
+[[ ! -d ~/.oh-my-zsh ]] && sh -c "$(wget -O- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh) --unattended"
+[[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak
+cp _zshrc ~/.zshrc
+[[ ! -d ~/.oh-my-zsh/custom/themes/alien-minimal ]] && \
+    git clone --recurse-submodules https://github.com/eendroroy/alien-minimal.git \
+        ~/.oh-my-zsh/custom/themes/alien-minimal
+[[ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]] && \
+    git clone https://github.com/zsh-users/zsh-autosuggestions \
+        ~/.oh-my-zsh/plugins/zsh-autosuggestions
+
+exec zsh -l
