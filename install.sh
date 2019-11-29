@@ -52,8 +52,12 @@ esac
 [[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak
 cp _zshrc ~/.zshrc
 [[ ! -f ~/.oh-my-zsh/themes/cdimascio-lambda.zsh-theme ]] && \
-    curl -fLo ~/.oh-my-zsh/themes/cdimascio-lambda.zsh-theme \
-        https://raw.githubusercontent.com/cdimascio/lambda-zsh-theme/master/cdimascio-lambda.zsh-theme
+    export ZSH_CUSTOM=~/.oh-my-zsh/custom
+    git clone --recurse-submodules https://github.com/eendroroy/alien-minimal.git ${ZSH_CUSTOM}/themes/alien-minimal
+
+    cd ${ZSH_CUSTOM}/themes/alien-minimal
+    git clone https://github.com/eendroroy/alien-minimal.git
+    git submodule update --init --recursive
 [[ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]] && \
     git clone https://github.com/zsh-users/zsh-autosuggestions \
         ~/.oh-my-zsh/plugins/zsh-autosuggestions
@@ -67,7 +71,8 @@ cp _zshrc ~/.zshrc
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    vim -c PlugInstall
+    #vim -c PlugInstall
+    vim +PlugInstall +qall
 fi
 
 #
