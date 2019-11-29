@@ -1,19 +1,16 @@
 #!/bin/bash
 
-WORKING_DIR=$PWD
-ORIGIN=`git remote get-url origin | cut -d'/' -f4`
-
 #
 # install rc files
 #
 [[ -f ~/.gitconfig ]] && mv ~/.gitconfig ~/.gitconfig.bak
 [[ -f ~/.gitignore ]] && mv ~/.gitignore ~/.gitignore.bak
-[[ -f ~/.aliases ]] && mv ~/.aliases ~/.aliases.bak
+[[ -f ~/.zsh_aliases ]] && mv ~/.zsh_aliases ~/.zsh_aliases.bak
 [[ -f ~/.vimrc ]] && mv ~/.vimrc ~/.vimrc.bak
 [[ -f ~/.tmux.conf ]] && mv ~/.tmux.conf ~/.tmux.conf.bak
 cp _gitconfig ~/.gitconfig
 cp _gitignore ~/.gitignore
-cp _aliases ~/.aliases
+cp _zsh_aliases ~/.zsh_aliases
 cp _vimrc ~/.vimrc
 cp _tmux.conf ~/.tmux.conf
 
@@ -22,7 +19,7 @@ cp _tmux.conf ~/.tmux.conf
 #
 distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
 case "$distro" in
-"ubuntu")
+"ubuntu" | "kali")
     # install git, zsh, vim, tmux
     sudo apt-get install git zsh vim tmux unzip -y
     # install fd
@@ -46,32 +43,16 @@ case "$distro" in
 esac
 
 #
-# install oh-my-zsh
-#
-[[ ! -d ~/.oh-my-zsh ]] && sh -c "$(wget -O- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-[[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak
-cp _zshrc ~/.zshrc
-[[ ! -f ~/.oh-my-zsh/themes/cdimascio-lambda.zsh-theme ]] && \
-    export ZSH_CUSTOM=~/.oh-my-zsh/custom
-    git clone --recurse-submodules https://github.com/eendroroy/alien-minimal.git ${ZSH_CUSTOM}/themes/alien-minimal
-
-    cd ${ZSH_CUSTOM}/themes/alien-minimal
-    git clone https://github.com/eendroroy/alien-minimal.git
-    git submodule update --init --recursive
-[[ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]] && \
-    git clone https://github.com/zsh-users/zsh-autosuggestions \
-        ~/.oh-my-zsh/plugins/zsh-autosuggestions
-
-#
 # install vim-plug
 #
 [[ ! -f ~/.vim/colors/monokai_pro.vim ]] && \
-    curl -fLo ~/.vim/colors/monokai_pro.vim --create-dirs \
-        https://raw.githubusercontent.com/phanviet/vim-monokai-pro/master/colors/monokai_pro.vim
+    curl -fLo ~/.vim/autoload/onedark.vim --create-dirs \
+        https://raw.githubusercontent.com/joshdick/onedark.vim/master/autoload/onedark.vim
+    curl -fLo ~/.vim/colors/onedark.vim --create-dirs \
+        https://raw.githubusercontent.com/joshdick/onedark.vim/master/colors/onedark.vim
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    #vim -c PlugInstall
     vim +PlugInstall +qall
 fi
 
@@ -85,3 +66,18 @@ if ! type -p exa>/dev/null; then
     unzip $ZIPFILE
     sudo mv exa-linux-x86_64 /usr/bin/exa
 fi
+
+#
+# install oh-my-zsh
+#
+[[ ! -d ~/.oh-my-zsh ]] && sh -c "$(wget -O- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh) --unattended"
+[[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak
+cp _zshrc ~/.zshrc
+[[ ! -d ~/.oh-my-zsh/custom/themes/alien-minimal ]] && \
+    git clone --recurse-submodules https://github.com/eendroroy/alien-minimal.git \
+        ~/.oh-my-zsh/custom/themes/alien-minimal
+[[ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]] && \
+    git clone https://github.com/zsh-users/zsh-autosuggestions \
+        ~/.oh-my-zsh/plugins/zsh-autosuggestions
+
+exec zsh -l

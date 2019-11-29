@@ -65,18 +65,15 @@ filetype off                  " required
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-easy-align'
 Plug 'sheerun/vim-polyglot'
-Plug 'phanviet/vim-monokai-pro'
 Plug 'VundleVim/Vundle.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yggdroot/indentline'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'fidian/hexmode'
-Plug 'phanviet/vim-monokai-pro'
-Plug 'leafgarland/typescript-vim'
 Plug 'tpope/vim-eunuch'
 call plug#end()
