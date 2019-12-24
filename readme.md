@@ -4,7 +4,7 @@
 
 ```shell
 ./install.sh
-./install_gdb.sh # if you need gdb
+./install_pwngdb.sh # if you need gdb
 ```
 
 - supportted os
