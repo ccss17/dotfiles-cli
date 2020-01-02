@@ -38,7 +38,7 @@ case "$distro" in
     fi
     ;;
 "arch")
-    sudo pacman -S git zsh vim tmux bat fd unzip
+    sudo pacman -S --noconfirm git zsh vim tmux bat fd unzip
     ;;
 esac
 
