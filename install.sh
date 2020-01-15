@@ -31,14 +31,20 @@ case "$distro" in
     fi
     # install bat
     if ! type -p bat>/dev/null; then
-        ZIPFILE="bat.deb"
+        DEBFILE="bat.deb"
         VERSION=`curl -s https://github.com/sharkdp/bat/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
-        wget -O $ZIPFILE -q https://github.com/sharkdp/bat/releases/download/$VERSION/bat_${VERSION:1}_amd64.deb
-        sudo dpkg -i $ZIPFILE
+        wget -O $DEBFILE -q https://github.com/sharkdp/bat/releases/download/$VERSION/bat_${VERSION:1}_amd64.deb
+        sudo dpkg -i $DEBFILE
+    fi
+    if ! type -p lsd>/dev/null; then
+        DEBFILE="lsd.deb"
+        VERSION=`curl -s https://github.com/Peltoche/lsd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
+        wget -O $DEBFILE -q https://github.com/Peltoche/lsd/releases/download/$VERSION/lsd_${VERSION:1}_amd64.deb
+        sudo dpkg -i $DEBFILE
     fi
     ;;
 "arch")
-    sudo pacman -S --noconfirm git zsh vim tmux bat fd unzip
+    sudo pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd
     ;;
 esac
 
