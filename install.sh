@@ -63,17 +63,6 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
 fi
 
 #
-# install exa
-#
-if ! type -p exa>/dev/null; then
-    ZIPFILE="exa.zip"
-    VERSION=`curl -s https://github.com/ogham/exa/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
-    wget -O $ZIPFILE -q https://github.com/ogham/exa/releases/download/$VERSION/exa-linux-x86_64-${VERSION:1}.zip
-    unzip $ZIPFILE
-    sudo mv exa-linux-x86_64 /usr/bin/exa
-fi
-
-#
 # install oh-my-zsh
 #
 if [[ ! -d ~/.oh-my-zsh ]]; then
