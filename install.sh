@@ -39,7 +39,7 @@ case "$distro" in
     if ! type -p lsd>/dev/null; then
         DEBFILE="lsd.deb"
         VERSION=`curl -s https://github.com/Peltoche/lsd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
-        wget -O $DEBFILE -q https://github.com/Peltoche/lsd/releases/download/$VERSION/lsd_${VERSION:1}_amd64.deb
+        wget -O $DEBFILE -q https://github.com/Peltoche/lsd/releases/download/$VERSION/lsd_${VERSION}_amd64.deb
         sudo dpkg -i $DEBFILE
     fi
     ;;
