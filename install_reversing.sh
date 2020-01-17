@@ -14,6 +14,8 @@
  "arch")
      sudo pacman -S --noconfirm gdb pwndbg radare2 lib32-glibc 
      #pacman -S lib32-glibc lib32-ncurses lib32-libstdc++5
+     r2pm init
+     r2pm install r2dec
      ;;
  esac
 
