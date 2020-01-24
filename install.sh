@@ -37,6 +37,7 @@ case "$distro" in
         sudo dpkg -i $DEBFILE
     fi
     if ! type -p lsd>/dev/null; then
+        sudo apt-get install fonts-hack-ttf
         DEBFILE="lsd.deb"
         VERSION=`curl -s https://github.com/Peltoche/lsd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
         wget -O $DEBFILE -q https://github.com/Peltoche/lsd/releases/download/$VERSION/lsd_${VERSION}_amd64.deb
@@ -44,9 +45,18 @@ case "$distro" in
     fi
     ;;
 "arch")
+    yay -S --noconfirm nerd-fonts-hack
     sudo pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd
     ;;
 esac
+
+#
+# tmux 2.x config
+#
+TMUX_VERSION=$(tmux -V | cut -d' ' -f2)
+if [[ "${TMUX_VERSION:0:1}" == "2" ]]; then
+    sed -i 's/bind \\\\ split-window -h/bind \\ split-window -h/g' ~/.tmux.conf
+fi
 
 #
 # install vim-plug
