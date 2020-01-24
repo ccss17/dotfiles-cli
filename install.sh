@@ -23,20 +23,20 @@ case "$distro" in
     # install git, zsh, vim, tmux
     sudo apt-get install git zsh vim tmux unzip -y
     # install fd
-    if ! type -p fd>/dev/null; then
+    if ! type fd>/dev/null; then
         ZIPFILE="fd.deb"
         VERSION=`curl -s https://github.com/sharkdp/fd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
         wget -O $ZIPFILE -q https://github.com/sharkdp/fd/releases/download/$VERSION/fd_${VERSION:1}_amd64.deb
         sudo dpkg -i $ZIPFILE
     fi
     # install bat
-    if ! type -p bat>/dev/null; then
+    if ! type bat>/dev/null; then
         DEBFILE="bat.deb"
         VERSION=`curl -s https://github.com/sharkdp/bat/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
         wget -O $DEBFILE -q https://github.com/sharkdp/bat/releases/download/$VERSION/bat_${VERSION:1}_amd64.deb
         sudo dpkg -i $DEBFILE
     fi
-    if ! type -p lsd>/dev/null; then
+    if ! type lsd>/dev/null; then
         sudo apt-get install fonts-hack-ttf
         DEBFILE="lsd.deb"
         VERSION=`curl -s https://github.com/Peltoche/lsd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
