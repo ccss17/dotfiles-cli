@@ -51,12 +51,15 @@ esac
 #
 # install vim-plug
 #
-[[ ! -f ~/.vim/colors/monokai_pro.vim ]] && \
+if [[ ! -f ~/.vim/autoload/onedark.vim ]]; then
     curl -fLo ~/.vim/autoload/onedark.vim --create-dirs \
         https://raw.githubusercontent.com/joshdick/onedark.vim/master/autoload/onedark.vim
+fi
+if [[ ! -f ~/.vim/colors/onedark.vim ]]; then
     curl -fLo ~/.vim/colors/onedark.vim --create-dirs \
         https://raw.githubusercontent.com/joshdick/onedark.vim/master/colors/onedark.vim
-if [ ! -f ~/.vim/autoload/plug.vim ]; then
+fi
+if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     vim +PlugInstall +qall
