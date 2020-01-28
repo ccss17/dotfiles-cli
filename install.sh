@@ -13,6 +13,7 @@ cp _gitignore ~/.gitignore
 cp _zsh_aliases ~/.zsh_aliases
 cp _vimrc ~/.vimrc
 cp _tmux.conf ~/.tmux.conf
+cp _amrc ~/.amrc
 
 #
 # install package
