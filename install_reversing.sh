@@ -11,6 +11,7 @@
      cd pwndbg
      ./setup.sh
      cd ..
+     mv pwndbg ~
      ;;
  "arch")
      sudo pacman -S --noconfirm gdb pwndbg radare2 lib32-glibc 
