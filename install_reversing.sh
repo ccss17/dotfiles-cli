@@ -23,4 +23,7 @@
 
  [[ -f ~/.gdbinit ]] && mv ~/.gdbinit ~/.gdbinit.bak
  cp _gdbinit ~/.gdbinit
+ if [[ -d /usr/share/pwndbg ]]; then
+     sed -i "s/source ~\/pwndbg\/gdbinit.py/source \/usr\/share\/pwndbg\/gdbinit.py/g" ~/.gdbinit
+ fi
 
