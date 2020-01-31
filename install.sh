@@ -27,7 +27,7 @@ distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
 case "$distro" in
 "ubuntu" | "kali")
     # install git, zsh, vim, tmux
-    $CMD apt-get install git zsh vim tmux unzip curl -y
+    $CMD apt-get install git zsh vim tmux unzip curl wget -y
     # install fd
     if ! type fd 2>/dev/null; then
         ZIPFILE="fd.deb"
@@ -50,7 +50,7 @@ case "$distro" in
     fi
     ;;
 "arch")
-    $CMD pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd
+    $CMD pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget
     ;;
 esac
 
