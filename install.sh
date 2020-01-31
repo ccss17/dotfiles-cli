@@ -57,43 +57,43 @@ esac
 #
 # tmux 2.x config
 #
-#TMUX_VERSION=$(tmux -V | cut -d' ' -f2)
-#if [[ "${TMUX_VERSION:0:1}" == "2" ]]; then
-    #sed -i 's/bind \\\\ split-window -h/bind \\ split-window -h/g' ~/.tmux.conf
-#fi
+TMUX_VERSION=$(tmux -V | cut -d' ' -f2)
+if [[ "${TMUX_VERSION:0:1}" == "2" ]]; then
+    sed -i 's/bind \\\\ split-window -h/bind \\ split-window -h/g' ~/.tmux.conf
+fi
 
-##
-## install vim-plug
-##
-#if [[ ! -f ~/.vim/autoload/onedark.vim ]]; then
-    #curl -fLo ~/.vim/autoload/onedark.vim --create-dirs \
-        #https://raw.githubusercontent.com/joshdick/onedark.vim/master/autoload/onedark.vim
-#fi
-#if [[ ! -f ~/.vim/colors/onedark.vim ]]; then
-    #curl -fLo ~/.vim/colors/onedark.vim --create-dirs \
-        #https://raw.githubusercontent.com/joshdick/onedark.vim/master/colors/onedark.vim
-#fi
-#if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
-    #curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        #https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    #vim +PlugInstall +qall
-#fi
+#
+# install vim-plug
+#
+if [[ ! -f ~/.vim/autoload/onedark.vim ]]; then
+    curl -fLo ~/.vim/autoload/onedark.vim --create-dirs \
+        https://raw.githubusercontent.com/joshdick/onedark.vim/master/autoload/onedark.vim
+fi
+if [[ ! -f ~/.vim/colors/onedark.vim ]]; then
+    curl -fLo ~/.vim/colors/onedark.vim --create-dirs \
+        https://raw.githubusercontent.com/joshdick/onedark.vim/master/colors/onedark.vim
+fi
+if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    vim +PlugInstall +qall
+fi
 
-##
-## install oh-my-zsh
-##
-#if [[ ! -d ~/.oh-my-zsh ]]; then
-    #wget -O install_ohmyzsh.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    #RUNZSH=no sh install_ohmyzsh.sh
-#fi
-#rm install_ohmyzsh.sh
-#[[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak
-#cp _zshrc ~/.zshrc
-#[[ ! -d ~/.oh-my-zsh/custom/themes/alien-minimal ]] && \
-    #git clone --recurse-submodules https://github.com/eendroroy/alien-minimal.git \
-        #~/.oh-my-zsh/custom/themes/alien-minimal
-#[[ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]] && \
-    #git clone https://github.com/zsh-users/zsh-autosuggestions \
-        #~/.oh-my-zsh/plugins/zsh-autosuggestions
+#
+# install oh-my-zsh
+#
+if [[ ! -d ~/.oh-my-zsh ]]; then
+    wget -O install_ohmyzsh.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    RUNZSH=no sh install_ohmyzsh.sh
+fi
+rm install_ohmyzsh.sh
+[[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak
+cp _zshrc ~/.zshrc
+[[ ! -d ~/.oh-my-zsh/custom/themes/alien-minimal ]] && \
+    git clone --recurse-submodules https://github.com/eendroroy/alien-minimal.git \
+        ~/.oh-my-zsh/custom/themes/alien-minimal
+[[ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]] && \
+    git clone https://github.com/zsh-users/zsh-autosuggestions \
+        ~/.oh-my-zsh/plugins/zsh-autosuggestions
 
-#exec zsh -l
+exec zsh -l
