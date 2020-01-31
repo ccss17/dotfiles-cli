@@ -97,4 +97,4 @@ cp _zshrc ~/.zshrc
     git clone https://github.com/zsh-users/zsh-autosuggestions \
         ~/.oh-my-zsh/plugins/zsh-autosuggestions
 
-exec zsh -l
+# exec zsh -l
