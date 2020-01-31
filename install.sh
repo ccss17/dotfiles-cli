@@ -18,34 +18,40 @@ cp _amrc ~/.amrc
 #
 # install package
 #
+UID=$(id -u)
+if [[ $UID == 0 ]]; then
+    CMD=""
+else
+    CMD="sudo "
+fi
 distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
 case "$distro" in
 "ubuntu" | "kali")
     # install git, zsh, vim, tmux
-    sudo apt-get install git zsh vim tmux unzip -y
+    $CMD apt-get install git zsh vim tmux unzip -y
     # install fd
     if ! type fd>/dev/null; then
         ZIPFILE="fd.deb"
         VERSION=`curl -s https://github.com/sharkdp/fd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
         wget -O $ZIPFILE -q https://github.com/sharkdp/fd/releases/download/$VERSION/fd_${VERSION:1}_amd64.deb
-        sudo dpkg -i $ZIPFILE
+        $CMD dpkg -i $ZIPFILE
     fi
     # install bat
     if ! type bat>/dev/null; then
         DEBFILE="bat.deb"
         VERSION=`curl -s https://github.com/sharkdp/bat/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
         wget -O $DEBFILE -q https://github.com/sharkdp/bat/releases/download/$VERSION/bat_${VERSION:1}_amd64.deb
-        sudo dpkg -i $DEBFILE
+        $CMD dpkg -i $DEBFILE
     fi
     if ! type lsd>/dev/null; then
         DEBFILE="lsd.deb"
         VERSION=`curl -s https://github.com/Peltoche/lsd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
         wget -O $DEBFILE -q https://github.com/Peltoche/lsd/releases/download/$VERSION/lsd_${VERSION}_amd64.deb
-        sudo dpkg -i $DEBFILE
+        $CMD dpkg -i $DEBFILE
     fi
     ;;
 "arch")
-    sudo pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd
+    $CMD pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd
     ;;
 esac
 
