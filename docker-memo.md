@@ -24,6 +24,7 @@ apt update \
     && git clone https://github.com/ccss17/dotfiles-cli \
     && cd dotfiles-cli \
     && ./install.sh
+    && ./install_reversing.sh
 
 cd ~ \
     && git clone https://github.com/ccss17/dotfiles-cli \

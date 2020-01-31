@@ -98,3 +98,4 @@ cp _zshrc ~/.zshrc
         ~/.oh-my-zsh/plugins/zsh-autosuggestions
 
 # exec zsh -l
+$CMD chsh -s $(which zsh)
