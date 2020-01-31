@@ -84,7 +84,8 @@ fi
 #
 if [[ ! -d ~/.oh-my-zsh ]]; then
     wget -O install_ohmyzsh.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    RUNZSH=no sh install_ohmyzsh.sh
+    # CHSH=no RUNZSH=no sh install_ohmyzsh.sh
+    sh install_ohmyzsh.sh --unattended
     rm install_ohmyzsh.sh
 fi
 [[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak

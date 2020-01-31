@@ -16,6 +16,20 @@
 
 ## 환경 구축
 
+
+apt update \
+    && apt upgrade -y \
+    && apt -y install git \
+    && cd ~ \
+    && git clone https://github.com/ccss17/dotfiles-cli \
+    && cd dotfiles-cli \
+    && ./install.sh
+
+cd ~ \
+    && git clone https://github.com/ccss17/dotfiles-cli \
+    && cd dotfiles-cli \
+    && ./install.sh
+
 1. 패키지 업데이트
 
     ```shell
@@ -31,7 +45,6 @@
 3. `dotfiles-cli` 설치 
 
     ```shell
-    cd ~
-    git clone https://github.com/ccss17/dotfiles-cli
-    cd dotfiles-cli
+    git clone https://github.com/ccss17/dotfiles-cli ~
+    ~/dotfiles-cli/install.sh
     ```
