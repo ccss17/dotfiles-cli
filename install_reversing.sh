@@ -24,7 +24,7 @@ case "$distro" in
     python3 -m pip -q install --upgrade pip
     python3 -m pip -q install --upgrade git+https://github.com/Gallopsled/pwntools.git@dev
     # ropgadget
-    pip -q install capstone ropgadget
+    python3 -m pip -q install capstone ropgadget
     ;;
 "arch")
     $CMD pacman -S --noconfirm gdb pwndbg radare2 lib32-glibc 
