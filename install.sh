@@ -19,38 +19,43 @@ cp _amrc ~/.amrc
 # install package
 #
 if [[ $UID == 0 ]]; then
-    CMD=""
+    SUDO=""
 else
-    CMD="sudo "
+    SUDO="sudo "
 fi
 distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
 case "$distro" in
 "ubuntu" | "kali")
     # install git, zsh, vim, tmux
-    $CMD apt-get install git zsh vim tmux unzip curl wget -y
+    $SUDO apt-get -y -qq install git zsh vim tmux unzip curl wget 
     # install fd
     if ! type fd 2>/dev/null; then
         ZIPFILE="fd.deb"
         VERSION=`curl -s https://github.com/sharkdp/fd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
-        wget -O $ZIPFILE -q https://github.com/sharkdp/fd/releases/download/$VERSION/fd_${VERSION:1}_amd64.deb
-        $CMD dpkg -i $ZIPFILE
+        wget -q -O $ZIPFILE -q https://github.com/sharkdp/fd/releases/download/$VERSION/fd_${VERSION:1}_amd64.deb
+        $SUDO dpkg -i $ZIPFILE
     fi
     # install bat
     if ! type bat 2>/dev/null; then
         DEBFILE="bat.deb"
         VERSION=`curl -s https://github.com/sharkdp/bat/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
-        wget -O $DEBFILE -q https://github.com/sharkdp/bat/releases/download/$VERSION/bat_${VERSION:1}_amd64.deb
-        $CMD dpkg -i $DEBFILE
+        wget -q -O $DEBFILE -q https://github.com/sharkdp/bat/releases/download/$VERSION/bat_${VERSION:1}_amd64.deb
+        $SUDO dpkg -i $DEBFILE
     fi
     if ! type lsd 2>/dev/null; then
         DEBFILE="lsd.deb"
         VERSION=`curl -s https://github.com/Peltoche/lsd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
-        wget -O $DEBFILE -q https://github.com/Peltoche/lsd/releases/download/$VERSION/lsd_${VERSION}_amd64.deb
-        $CMD dpkg -i $DEBFILE
+        wget -q -O $DEBFILE -q https://github.com/Peltoche/lsd/releases/download/$VERSION/lsd_${VERSION}_amd64.deb
+        $SUDO dpkg -i $DEBFILE
     fi
+    if ! type lsd 2>/dev/null; then
+        wget -q "https://github.com/sharkdp/hexyl/releases/download/v0.6.0/hexyl_0.6.0_amd64.deb"
+        $SUDO dpkg -i hexyl_0.6.0_amd64.deb
+    fi
+
     ;;
 "arch")
-    $CMD pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget
+    $SUDO pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget hexyl
     ;;
 esac
 
@@ -66,15 +71,15 @@ fi
 # install vim-plug
 #
 if [[ ! -f ~/.vim/autoload/onedark.vim ]]; then
-    curl -fLo ~/.vim/autoload/onedark.vim --create-dirs \
+    curl -sfLo ~/.vim/autoload/onedark.vim --create-dirs \
         https://raw.githubusercontent.com/joshdick/onedark.vim/master/autoload/onedark.vim
 fi
 if [[ ! -f ~/.vim/colors/onedark.vim ]]; then
-    curl -fLo ~/.vim/colors/onedark.vim --create-dirs \
+    curl -sfLo ~/.vim/colors/onedark.vim --create-dirs \
         https://raw.githubusercontent.com/joshdick/onedark.vim/master/colors/onedark.vim
 fi
 if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    curl -sfLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     vim +PlugInstall +qall
 fi
@@ -83,7 +88,7 @@ fi
 # install oh-my-zsh
 #
 if [[ ! -d ~/.oh-my-zsh ]]; then
-    wget -O install_ohmyzsh.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    wget -q -O install_ohmyzsh.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     # CHSH=no RUNZSH=no sh install_ohmyzsh.sh
     sh install_ohmyzsh.sh --unattended
     rm install_ohmyzsh.sh
@@ -98,4 +103,4 @@ cp _zshrc ~/.zshrc
         ~/.oh-my-zsh/plugins/zsh-autosuggestions
 
 # exec zsh -l
-$CMD chsh -s $(which zsh)
+$SUDO chsh -s $(which zsh)
