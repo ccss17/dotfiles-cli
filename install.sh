@@ -103,4 +103,4 @@ cp _zshrc ~/.zshrc
         ~/.oh-my-zsh/plugins/zsh-autosuggestions
 
 # exec zsh -l
-$SUDO chsh -s $(which zsh)
+# $SUDO chsh -s $(which zsh)

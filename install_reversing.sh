@@ -32,7 +32,7 @@ case "$distro" in
     ;;
 esac
 
-r2pm init
+# r2pm init
 # r2pm install r2dec
 
 [[ -f ~/.gdbinit ]] && mv ~/.gdbinit ~/.gdbinit.bak
