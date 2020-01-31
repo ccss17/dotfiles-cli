@@ -85,8 +85,8 @@ fi
 if [[ ! -d ~/.oh-my-zsh ]]; then
     wget -O install_ohmyzsh.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     RUNZSH=no sh install_ohmyzsh.sh
+    rm install_ohmyzsh.sh
 fi
-rm install_ohmyzsh.sh
 [[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak
 cp _zshrc ~/.zshrc
 [[ ! -d ~/.oh-my-zsh/custom/themes/alien-minimal ]] && \
