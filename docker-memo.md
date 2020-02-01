@@ -40,7 +40,7 @@
 - `ubuntu 18.04` 시작(privileged mode)
 
   ```shell
-  docker run -it --privileged --name gbc ubuntu:18.04 /usr/bin/zsh
+  docker run -it --privileged --name gbc -w /root ubuntu:18.04 /usr/bin/zsh
   ```
 
 ## 상태
@@ -61,4 +61,40 @@
 
   ```shell
   docker ps -a
+  ```
+
+- 컨테이너 삭제 
+
+  ```shell
+  docker rm container
+  ```
+
+  - 중지된 컨테이너 모두 삭제 
+
+    ```shell
+    docker rm -v $(docker ps -a -q -f status=exited)
+    ```
+
+- 이미지 생성 
+
+  ```shell
+  docker build -t username/image .
+  ```
+
+  ```shell
+  docker build -t app .
+  ```
+
+- 이미지 이름 변경 : 
+
+  - `app` 에서 `username/image:1` 으로 (`버전 == 1`)
+
+    ```shell
+    docker tag app username/image:1
+    ```
+
+- 이미지 푸쉬 
+
+  ```shell
+  docker push username/image
   ```
