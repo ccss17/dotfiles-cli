@@ -13,13 +13,20 @@
 - 실행중인 컨테이너 중지 
 
   ```shell
+  # 그냥 컨테이너 내부 쉘에서 exit 입력 
+  exit
+  ```
+  
+  또는 로컬 쉘에서 다음 명령어 입력 
+
+  ```shell
   docker stop <container>
   ```
 
 - 중지된 컨테이너 재시작
 
   ```shell
-  docker start -ai gbc
+  docker start -ai <container>
   ```
 
 - 변경된 컨테이너로부터 이미지 생성 
