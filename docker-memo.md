@@ -96,5 +96,9 @@
 - 이미지 푸쉬 
 
   ```shell
+  docker login
   docker push username/image
   ```
+  ccss17/security-tutorial   3                   7dd9eb6dc09e        About a minute ago   1.14GB
+ccss17/security-tutorial   latest              1bcdddcb9479        24 minutes ago       1.13GB
+
