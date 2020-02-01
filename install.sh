@@ -96,10 +96,10 @@ fi
 [[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak
 cp _zshrc ~/.zshrc
 [[ ! -d ~/.oh-my-zsh/custom/themes/alien-minimal ]] && \
-    git clone --recurse-submodules https://github.com/eendroroy/alien-minimal.git \
+    git clone -q --recurse-submodules https://github.com/eendroroy/alien-minimal.git \
         ~/.oh-my-zsh/custom/themes/alien-minimal
 [[ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]] && \
-    git clone https://github.com/zsh-users/zsh-autosuggestions \
+    git clone -q https://github.com/zsh-users/zsh-autosuggestions \
         ~/.oh-my-zsh/plugins/zsh-autosuggestions
 
 # exec zsh -l

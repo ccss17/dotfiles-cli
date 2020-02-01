@@ -33,7 +33,7 @@
 - `ubuntu 18.04` 시작(privileged mode)
 
   ```shell
-  docker run -it --privileged --name gbc ubuntu:18.04 /bin/bash
+  docker run -it --privileged --name gbc ubuntu:18.04 /usr/bin/zsh
   ```
 
 ## 상태
@@ -55,90 +55,3 @@
   ```shell
   docker ps -a
   ```
-
-## 환경 구축
-
-
-### 명령어 정리 
-
-```shell
-apt update \
-    && apt upgrade -y \
-    && apt -y install git \
-    && cd ~ \
-    && git clone https://github.com/ccss17/dotfiles-cli \
-    && cd dotfiles-cli \
-    && ./install.sh \
-    && ./install_reversing.sh \
-    && rm -rf ~/dotfiles-cli \
-    && cd ~ \
-    && wget http://security.cs.rpi.edu/courses/binexp-spring2015/lectures/2/challenges.zip \
-    && unzip challenges.zip \
-    && mv challenges crackme \
-    && rm -rf __MAXOSX challenges.zip \
-    && wget http://security.cs.rpi.edu/courses/binexp-spring2015/lectures/3/bombs.zip \
-    && unzip bombs.zip \
-    && chmod +x ~/bombs/bomb \
-    && rm bombs.zip \
-    && git clone https://github.com/ccss17/bof \ 
-    && cd bof \
-    && ./setup.sh \
-    && rm -rf ~/bof \
-    && cd ~ \
-    && git clone https://github.com/ccss17/security-tutorial
-```
-
-```shell
-apt update -qq \
-    && apt -y -qq upgrade \
-    && apt -y -qq install git \
-    && cd ~ \
-    && git clone -q https://github.com/ccss17/dotfiles-cli \
-    && cd dotfiles-cli \
-    && ./install.sh \
-    && ./install_reversing.sh \
-    && rm -rf ~/dotfiles-cli \
-    && cd ~ \
-    && wget http://security.cs.rpi.edu/courses/binexp-spring2015/lectures/2/challenges.zip \
-    && unzip challenges.zip \
-    && mv challenges crackme \
-    && rm -rf __MAXOSX challenges.zip \
-    && wget http://security.cs.rpi.edu/courses/binexp-spring2015/lectures/3/bombs.zip \
-    && unzip bombs.zip \
-    && chmod +x ~/bombs/bomb \
-    && rm bombs.zip \
-    && git clone -q https://github.com/ccss17/bof \ 
-    && cd bof \
-    && ./setup.sh \
-    && rm -rf ~/bof \
-    && cd ~ \
-    && git clone -q https://github.com/ccss17/security-tutorial
-```
-
-### Dockerfile
-
-```dockerfile
-FROM       ubuntu:18.04
-MAINTAINER chansol0505@naver.com
-RUN apt -qq update \
-    && apt -y -qq upgrade \
-    && apt -y -qq install git \
-    && cd ~ \
-    && git clone -q https://github.com/ccss17/dotfiles-cli \
-    && cd dotfiles-cli \
-    && ./install.sh \
-    && ./install_reversing.sh \
-    && cd ~ \
-    && wget http://security.cs.rpi.edu/courses/binexp-spring2015/lectures/2/challenges.zip \
-    && unzip challenges.zip \
-    && mv challenges crackme \
-    && wget http://security.cs.rpi.edu/courses/binexp-spring2015/lectures/3/bombs.zip \
-    && unzip bombs.zip \
-    && chmod +x ~/bombs/bomb \
-    && git clone -q https://github.com/ccss17/bof \ 
-    && cd bof \
-    && ./setup.sh \
-    && rm -rf ~/dotfiles-cli ~/__MAXOSX ~/challenges.zip ~/bombs.zip ~/bof \
-    && git clone -q https://github.com/ccss17/security-tutorial ~/security-tutorial
-CMD zsh
-```
