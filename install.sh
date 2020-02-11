@@ -1,21 +1,6 @@
 #!/bin/bash
 
 #
-# install rc files
-#
-[[ -f ~/.gitconfig ]] && mv ~/.gitconfig ~/.gitconfig.bak
-[[ -f ~/.gitignore ]] && mv ~/.gitignore ~/.gitignore.bak
-[[ -f ~/.zsh_aliases ]] && mv ~/.zsh_aliases ~/.zsh_aliases.bak
-[[ -f ~/.vimrc ]] && mv ~/.vimrc ~/.vimrc.bak
-[[ -f ~/.tmux.conf ]] && mv ~/.tmux.conf ~/.tmux.conf.bak
-cp _gitconfig ~/.gitconfig
-cp _gitignore ~/.gitignore
-cp _zsh_aliases ~/.zsh_aliases
-cp _vimrc ~/.vimrc
-cp _tmux.conf ~/.tmux.conf
-cp _amrc ~/.amrc
-
-#
 # install package
 #
 if [[ $UID == 0 ]]; then
@@ -60,6 +45,47 @@ case "$distro" in
 esac
 
 #
+# install oh-my-zsh
+#
+if [[ ! -d ~/.oh-my-zsh ]]; then
+    wget -q -O install_ohmyzsh.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    # CHSH=no RUNZSH=no sh install_ohmyzsh.sh
+    sh install_ohmyzsh.sh --unattended
+    rm install_ohmyzsh.sh
+fi
+# [[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak
+# cp _zshrc ~/.zshrc
+[[ ! -d ~/.oh-my-zsh/custom/themes/alien-minimal ]] && \
+    git clone -q --recurse-submodules https://github.com/eendroroy/alien-minimal.git \
+        ~/.oh-my-zsh/custom/themes/alien-minimal
+[[ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]] && \
+    git clone -q https://github.com/zsh-users/zsh-autosuggestions \
+        ~/.oh-my-zsh/plugins/zsh-autosuggestions
+
+# exec zsh -l
+# $SUDO chsh -s $(which zsh)
+
+#
+# install rc files
+#
+# [[ -f ~/.gitconfig ]] && mv ~/.gitconfig ~/.gitconfig.bak
+# [[ -f ~/.gitignore ]] && mv ~/.gitignore ~/.gitignore.bak
+# [[ -f ~/.zsh_aliases ]] && mv ~/.zsh_aliases ~/.zsh_aliases.bak
+# [[ -f ~/.vimrc ]] && mv ~/.vimrc ~/.vimrc.bak
+# [[ -f ~/.tmux.conf ]] && mv ~/.tmux.conf ~/.tmux.conf.bak
+# cp .gitconfig ~/.gitconfig
+# cp .gitignore ~/.gitignore
+# cp .zsh_aliases ~/.zsh_aliases
+# cp .vimrc ~/.vimrc
+# cp .tmux.conf ~/.tmux.conf
+# cp .amrc ~/.amrc
+
+for file in $(find $(CURDIR) -type f -name ".*" -not -name "_gdbinit"); do 
+    f=$(basename $file)
+    ln -sf $file $(HOME)/$f; 
+done
+
+#
 # tmux 2.x config
 #
 TMUX_VERSION=$(tmux -V | cut -d' ' -f2)
@@ -83,24 +109,3 @@ if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     vim +PlugInstall +qall
 fi
-
-#
-# install oh-my-zsh
-#
-if [[ ! -d ~/.oh-my-zsh ]]; then
-    wget -q -O install_ohmyzsh.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    # CHSH=no RUNZSH=no sh install_ohmyzsh.sh
-    sh install_ohmyzsh.sh --unattended
-    rm install_ohmyzsh.sh
-fi
-[[ -f ~/.zshrc ]] && mv ~/.zshrc ~/.zshrc.bak
-cp _zshrc ~/.zshrc
-[[ ! -d ~/.oh-my-zsh/custom/themes/alien-minimal ]] && \
-    git clone -q --recurse-submodules https://github.com/eendroroy/alien-minimal.git \
-        ~/.oh-my-zsh/custom/themes/alien-minimal
-[[ ! -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]] && \
-    git clone -q https://github.com/zsh-users/zsh-autosuggestions \
-        ~/.oh-my-zsh/plugins/zsh-autosuggestions
-
-# exec zsh -l
-# $SUDO chsh -s $(which zsh)
