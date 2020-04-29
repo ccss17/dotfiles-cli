@@ -80,9 +80,9 @@ fi
 # cp .tmux.conf ~/.tmux.conf
 # cp .amrc ~/.amrc
 
-for file in $(find $(CURDIR) -type f -name ".*" -not -name "_gdbinit"); do 
+for file in $(find $CURDIR -type f -name ".*" -not -name "_gdbinit"); do 
     f=$(basename $file)
-    ln -sf $file $(HOME)/$f; 
+    ln -sf $PWD/$file $HOME/$f; 
 done
 
 #
