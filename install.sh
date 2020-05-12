@@ -33,7 +33,7 @@ case "$distro" in
         wget -q -O $DEBFILE -q https://github.com/Peltoche/lsd/releases/download/$VERSION/lsd_${VERSION}_amd64.deb
         $SUDO dpkg -i $DEBFILE
     fi
-    if ! type lsd 2>/dev/null; then
+    if ! type hexyl 2>/dev/null; then
         wget -q "https://github.com/sharkdp/hexyl/releases/download/v0.6.0/hexyl_0.6.0_amd64.deb"
         $SUDO dpkg -i hexyl_0.6.0_amd64.deb
     fi
