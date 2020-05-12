@@ -1,10 +1,13 @@
 alias src="source ~/.zshrc"
 alias t=tmux
+alias dk=docker
 alias v=vim
 alias rm=rm -i
 alias c=clear
 alias cs='cd ..'
-alias ls='lsd --icon never'
+# alias ls='lsd --icon never'
+alias ls='lsd'
+alias dk=docker
 alias cl='clear;ls'
 alias l='ls'
 alias la='ls -a'
