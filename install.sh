@@ -3,6 +3,7 @@
 #
 # install package
 #
+set -xe
 if [[ $UID == 0 ]]; then
     SUDO=""
 else
@@ -37,10 +38,15 @@ case "$distro" in
         wget -q "https://github.com/sharkdp/hexyl/releases/download/v0.6.0/hexyl_0.6.0_amd64.deb"
         $SUDO dpkg -i hexyl_0.6.0_amd64.deb
     fi
-
+    if ! type gotop 2>/dev/null; then
+        git clone --depth 1 https://github.com/cjbassi/gotop /tmp/gotop
+        /tmp/gotop/scripts/download.sh
+        $SUDO mv gotop /usr/local/bin/
+    fi
     ;;
 "arch")
     $SUDO pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget hexyl
+    $SUDO yay -S --noconfirm gotop-bin
     ;;
 esac
 
