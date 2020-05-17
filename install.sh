@@ -13,7 +13,7 @@ distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
 case "$distro" in
 "ubuntu" | "kali")
     # install git, zsh, vim, tmux
-    $SUDO apt-get -y -qq install git zsh vim tmux unzip curl wget 
+    $SUDO apt-get -y -qq install git zsh vim tmux unzip curl wget nodejs npm
     # install fd
     if ! type fd 2>/dev/null; then
         ZIPFILE="fd.deb"
@@ -45,10 +45,15 @@ case "$distro" in
     fi
     ;;
 "arch")
-    $SUDO pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget hexyl
+    $SUDO pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget hexyl nodejs npm
     $SUDO yay -S --noconfirm gotop-bin
     ;;
 esac
+
+#
+# install tldr
+#
+$SUDO npm install -g --unsafe-perm tldr
 
 #
 # install oh-my-zsh
