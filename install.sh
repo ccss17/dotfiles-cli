@@ -46,7 +46,7 @@ case "$distro" in
     ;;
 "arch")
     $SUDO pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget hexyl
-    $SUDO yay -S --noconfirm gotop-bin
+    yay -S --noconfirm gotop-bin
     ;;
 esac
 
