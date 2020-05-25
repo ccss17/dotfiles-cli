@@ -102,10 +102,11 @@ fi
 # cp .tmux.conf ~/.tmux.conf
 # cp .amrc ~/.amrc
 
-for file in $(find $CURDIR -type f -name ".*" -not -name "_gdbinit"); do 
+for file in $(find $CURDIR -type f -name ".*" -not -name ".gdbinit" -not -name ".gitconfig"); do 
     f=$(basename $file)
     ln -sf $PWD/$file $HOME/$f; 
 done
+cat .gitconfig >> ~/.gitconfig
 
 #
 # tmux 2.x config
