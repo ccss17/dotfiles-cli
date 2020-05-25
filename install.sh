@@ -37,8 +37,17 @@ case "$distro" in
         $SUDO dpkg -i $DEBFILE
     fi
     if ! type hexyl 2>/dev/null; then
-        wget -q "https://github.com/sharkdp/hexyl/releases/download/v0.6.0/hexyl_0.6.0_amd64.deb"
-        $SUDO dpkg -i hexyl_0.6.0_amd64.deb
+        DEBFILE="hexyl.deb"
+        VERSION=`curl -s https://github.com/sharkdp/hexyl/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
+        wget -q -O $DEBFILE -q https://github.com/sharkdp/hexyl/releases/download/$VERSION/hexyl_${VERSION}_amd64.deb
+        $SUDO dpkg -i $DEBFILE
+    fi
+    if ! type fzf 2>/dev/null; then
+        TGZFILE="fzf.tgz"
+        VERSION=`curl -s https://github.com/junegunn/fzf-bin/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
+        wget -q -O $TGZFILE -q https://github.com/junegunn/fzf-bin/releases/download/$VERSION/fzf-${VERSION}-linux_amd64.tgz
+        tar xf $TGZFILE
+        $SUDO mv fzf /usr/local/bin/
     fi
     if ! type gotop 2>/dev/null; then
         git clone --depth 1 https://github.com/cjbassi/gotop /tmp/gotop
@@ -47,7 +56,7 @@ case "$distro" in
     fi
     ;;
 "arch")
-    $SUDO pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget hexyl nodejs npm gist
+    $SUDO pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget hexyl nodejs npm gist fzf
     yay -S --noconfirm gotop-bin
     ;;
 esac
