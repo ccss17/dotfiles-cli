@@ -13,7 +13,7 @@ distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
 case "$distro" in
 "ubuntu" | "kali")
     # install git, zsh, vim, tmux
-    $SUDO apt-get -y -qq install git zsh vim tmux unzip curl wget nodejs npm ruby-full
+    $SUDO apt-get -y -qq install git zsh vim tmux unzip curl wget nodejs npm ruby-full bpython
     # install gist
     $SUDO gem install gist
     # install fd
@@ -56,7 +56,7 @@ case "$distro" in
     fi
     ;;
 "arch")
-    $SUDO pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget hexyl nodejs npm gist fzf
+    $SUDO pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget hexyl nodejs npm gist fzf bpython
     yay -S --noconfirm gotop-bin
     ;;
 esac
@@ -90,23 +90,12 @@ fi
 #
 # install rc files
 #
-# [[ -f ~/.gitconfig ]] && mv ~/.gitconfig ~/.gitconfig.bak
-# [[ -f ~/.gitignore ]] && mv ~/.gitignore ~/.gitignore.bak
-# [[ -f ~/.zsh_aliases ]] && mv ~/.zsh_aliases ~/.zsh_aliases.bak
-# [[ -f ~/.vimrc ]] && mv ~/.vimrc ~/.vimrc.bak
-# [[ -f ~/.tmux.conf ]] && mv ~/.tmux.conf ~/.tmux.conf.bak
-# cp .gitconfig ~/.gitconfig
-# cp .gitignore ~/.gitignore
-# cp .zsh_aliases ~/.zsh_aliases
-# cp .vimrc ~/.vimrc
-# cp .tmux.conf ~/.tmux.conf
-# cp .amrc ~/.amrc
-
-for file in $(find $CURDIR -type f -name ".*" -not -name ".gdbinit" -not -name ".gitconfig"); do 
+for file in $(find $CURDIR -type f -name ".*" -not -name ".gdbinit" -not -name ".gitconfig" -not name ".zshrc"); do 
     f=$(basename $file)
     ln -sf $PWD/$file $HOME/$f; 
 done
 cat .gitconfig >> ~/.gitconfig
+cat .zshrc >> ~/.zshrc
 
 #
 # tmux 2.x config
