@@ -95,7 +95,7 @@ for file_path in $(find $PWD -type f -name ".*" ); do
     if ! [ "$fname" = ".zshrc" ] &&
        ! [ "$fname" = ".gdbinit" ] &&
        ! [ "$fname" = ".gitconfig" ]; then
-        ln -sf $file $HOME/$fname; 
+        ln -sf $file_path $HOME/$fname; 
     fi
 done
 cat .gitconfig >> ~/.gitconfig
