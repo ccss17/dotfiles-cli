@@ -1,8 +1,10 @@
 export TERM="xterm-256color"
 export ZSH="$HOME/.oh-my-zsh"
-export INTERFACES="wlo1"
+export INTERFACES="wlp2s0"
 export LANG="en_US.UTF-8"
+PATH=$PATH:~/.local/bin
 ZSH_THEME="alien-minimal/alien-minimal"
+#ZSH_THEME="3den"
 plugins=( 
   z 
   zsh-autosuggestions

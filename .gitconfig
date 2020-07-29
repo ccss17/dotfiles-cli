@@ -38,6 +38,7 @@
 	support = support-
 	versiontag = v
 [alias]
+	i = init
 	a = add --all
 	ai = add -i
 	#############
@@ -231,6 +232,3 @@
 	subrepo = !sh -c 'git filter-branch --prune-empty --subdirectory-filter $1 master' -
 	human = name-rev --name-only --refs=refs/heads/*
     cred = config credential.helper store
-[user]
-	email = test@test.t
-	name = TEST

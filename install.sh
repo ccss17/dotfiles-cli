@@ -3,6 +3,7 @@
 #
 # install package
 #
+set -xe
 if [[ $UID == 0 ]]; then
     SUDO=""
 else
@@ -12,37 +13,58 @@ distro=$(cat /etc/os-release | grep "^ID=" | cut -d\= -f2 | sed -e 's/"//g')
 case "$distro" in
 "ubuntu" | "kali")
     # install git, zsh, vim, tmux
-    $SUDO apt-get -y -qq install git zsh vim tmux unzip curl wget 
+    $SUDO apt-get -y -qq install git zsh vim tmux unzip curl wget nodejs npm ruby-full bpython
+    # install gist
+    $SUDO gem install gist
     # install fd
     if ! type fd 2>/dev/null; then
         ZIPFILE="fd.deb"
         VERSION=`curl -s https://github.com/sharkdp/fd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
-        wget -q -O $ZIPFILE -q https://github.com/sharkdp/fd/releases/download/$VERSION/fd_${VERSION:1}_amd64.deb
+        wget -q -O $ZIPFILE https://github.com/sharkdp/fd/releases/download/$VERSION/fd_${VERSION:1}_amd64.deb
         $SUDO dpkg -i $ZIPFILE
     fi
     # install bat
     if ! type bat 2>/dev/null; then
         DEBFILE="bat.deb"
         VERSION=`curl -s https://github.com/sharkdp/bat/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
-        wget -q -O $DEBFILE -q https://github.com/sharkdp/bat/releases/download/$VERSION/bat_${VERSION:1}_amd64.deb
+        wget -q -O $DEBFILE https://github.com/sharkdp/bat/releases/download/$VERSION/bat_${VERSION:1}_amd64.deb
         $SUDO dpkg -i $DEBFILE
     fi
     if ! type lsd 2>/dev/null; then
         DEBFILE="lsd.deb"
         VERSION=`curl -s https://github.com/Peltoche/lsd/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
-        wget -q -O $DEBFILE -q https://github.com/Peltoche/lsd/releases/download/$VERSION/lsd_${VERSION}_amd64.deb
+        wget -q -O $DEBFILE https://github.com/Peltoche/lsd/releases/download/$VERSION/lsd_${VERSION}_amd64.deb
         $SUDO dpkg -i $DEBFILE
     fi
-    if ! type lsd 2>/dev/null; then
-        wget -q "https://github.com/sharkdp/hexyl/releases/download/v0.6.0/hexyl_0.6.0_amd64.deb"
-        $SUDO dpkg -i hexyl_0.6.0_amd64.deb
+    if ! type hexyl 2>/dev/null; then
+        DEBFILE="hexyl.deb"
+        VERSION=`curl -s https://github.com/sharkdp/hexyl/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
+        wget -O $DEBFILE https://github.com/sharkdp/hexyl/releases/download/$VERSION/hexyl_${VERSION:1}_amd64.deb
+        $SUDO dpkg -i $DEBFILE
     fi
-
+    if ! type fzf 2>/dev/null; then
+        TGZFILE="fzf.tgz"
+        VERSION=`curl -s https://github.com/junegunn/fzf-bin/releases/latest | cut -d '"' -f 2 | cut -d '/' -f 8`
+        wget -O $TGZFILE https://github.com/junegunn/fzf-bin/releases/download/$VERSION/fzf-${VERSION}-linux_amd64.tgz
+        tar xf $TGZFILE
+        $SUDO mv fzf /usr/local/bin/
+    fi
+    if ! type gotop 2>/dev/null; then
+        git clone --depth 1 https://github.com/cjbassi/gotop /tmp/gotop
+        /tmp/gotop/scripts/download.sh
+        $SUDO mv gotop /usr/local/bin/
+    fi
     ;;
 "arch")
-    $SUDO pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget hexyl
+    $SUDO pacman -S --noconfirm git zsh vim tmux bat fd unzip lsd curl wget hexyl nodejs npm gist fzf bpython
+    yay -S --noconfirm gotop-bin
     ;;
 esac
+
+#
+# install tldr
+#
+$SUDO npm install -g --unsafe-perm tldr
 
 #
 # install oh-my-zsh
@@ -68,22 +90,17 @@ fi
 #
 # install rc files
 #
-# [[ -f ~/.gitconfig ]] && mv ~/.gitconfig ~/.gitconfig.bak
-# [[ -f ~/.gitignore ]] && mv ~/.gitignore ~/.gitignore.bak
-# [[ -f ~/.zsh_aliases ]] && mv ~/.zsh_aliases ~/.zsh_aliases.bak
-# [[ -f ~/.vimrc ]] && mv ~/.vimrc ~/.vimrc.bak
-# [[ -f ~/.tmux.conf ]] && mv ~/.tmux.conf ~/.tmux.conf.bak
-# cp .gitconfig ~/.gitconfig
-# cp .gitignore ~/.gitignore
-# cp .zsh_aliases ~/.zsh_aliases
-# cp .vimrc ~/.vimrc
-# cp .tmux.conf ~/.tmux.conf
-# cp .amrc ~/.amrc
-
-for file in $(find $(CURDIR) -type f -name ".*" -not -name "_gdbinit"); do 
+for file in $(find $CURDIR -type f -name ".*" ); do 
+    if [ "$file" = "$(pwd)""/.zshrc" ] ||
+       [ "$file" = "$(pwd)""/.gdbinit" ] ||
+       [ "$file" = "$(pwd)""/.gitconfig" ]; then
+	    echo $file
+    fi
     f=$(basename $file)
-    ln -sf $file $(HOME)/$f; 
+    ln -sf $PWD/$file $HOME/$f; 
 done
+cat .gitconfig >> ~/.gitconfig
+cat .zshrc >> ~/.zshrc
 
 #
 # tmux 2.x config
