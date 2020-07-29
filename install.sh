@@ -90,14 +90,14 @@ fi
 #
 # install rc files
 #
-for file in $(find $CURDIR -type f -name ".*" ); do 
-    if [ "$file" = "$(pwd)""/.zshrc" ] ||
-       [ "$file" = "$(pwd)""/.gdbinit" ] ||
-       [ "$file" = "$(pwd)""/.gitconfig" ]; then
-	    echo $file
+for file in $(find $PWD -type f -name ".*" ); do 
+    fname=$(echo $file | rev | cut -d'/' -f1 | rev)
+    if ! [ "$fname" = ".zshrc" ] &&
+       ! [ "$fname" = ".gdbinit" ] &&
+       ! [ "$fname" = ".gitconfig" ]; then
+        f=$(basename $file)
+        ln -sf $PWD/$file $HOME/$f; 
     fi
-    f=$(basename $file)
-    ln -sf $PWD/$file $HOME/$f; 
 done
 cat .gitconfig >> ~/.gitconfig
 cat .zshrc >> ~/.zshrc
