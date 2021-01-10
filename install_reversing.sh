@@ -36,7 +36,7 @@ esac
 # r2pm install r2dec
 
 [[ -f ~/.gdbinit ]] && mv ~/.gdbinit ~/.gdbinit.bak
-cp _gdbinit ~/.gdbinit
+cp .gdbinit ~/.gdbinit
 if [[ -d /usr/share/pwndbg ]]; then
     sed -i "s/source ~\/pwndbg\/gdbinit.py/source \/usr\/share\/pwndbg\/gdbinit.py/g" ~/.gdbinit
 fi
