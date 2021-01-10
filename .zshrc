@@ -3,8 +3,8 @@ export ZSH="$HOME/.oh-my-zsh"
 export INTERFACES="wlp2s0"
 export LANG="en_US.UTF-8"
 PATH=$PATH:~/.local/bin
-ZSH_THEME="alien-minimal/alien-minimal"
-#ZSH_THEME="3den"
+# ZSH_THEME="alien-minimal/alien-minimal"
+ZSH_THEME="fox"
 plugins=( 
   z 
   zsh-autosuggestions
